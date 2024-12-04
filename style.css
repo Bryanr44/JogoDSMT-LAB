@@ -1,5 +1,5 @@
 h1 {
-    color: rgb(211, 4, 4);
+    color: rgb(255, 255, 255);
     font-size: 30px;
     font-weight: bold;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
@@ -15,7 +15,7 @@ body {
     height: 100vh;
     margin: 0;
     flex-direction: column;
-    background-image: url('MPMGNO.png');
+    background-image: url('MPMGNOVO1.png');
     background-size: cover;
     background-position: center;
     color: rgb(255, 255, 255);
