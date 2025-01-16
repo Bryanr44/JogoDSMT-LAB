@@ -97,6 +97,7 @@ function showPopup(selectedOption) {
     popupContainer.style.left = "50%";
     popupContainer.style.transform = "translate(-50%, -50%)";
     popupContainer.style.backgroundColor = "white";
+    popupContainer.style.borderradius = "60px";
     popupContainer.style.padding = "20px";
     popupContainer.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
     popupContainer.style.textAlign = "center";
