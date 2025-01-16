@@ -36,7 +36,6 @@ const questions = {
       { question: "Pergunta 10 Modo Difícil: Quando o VoIP não está fazendo nem recebendo chamadas, qual a ação correta a ser realizada?", options: ["Verificar se o dispositivo VoIP está conectado à rede e tentar desinstalar e reinstalar o software VoIP, sem necessidade de verificar o IP ou a configuração de rede, e aguardar a resposta do provedor de internet para confirmação do erro.", "Checar se o IP está visível no dispositivo e, se não, reiniciar o roteador. Após isso, verificar o IP do micro conectado à rede 10.24 e coletar o MAC do micro para análise.", "Reiniciar o micro para que ele atualize todas as configurações de rede de forma automática, sem verificar se o IP do VoIP foi reconhecido ou realizar qualquer ação no dispositivo. Isso deve ser suficiente para a solução do problema.", "Realizar uma investigação detalhada, desconectar todos os dispositivos da rede, mudar o IP e realizar um reset completo no servidor, além de verificar todos os detalhes de configuração do micro, para depois, se o problema persistir, considerar o envio de um técnico especializado ao local."], correct: "Checar se o IP está visível no dispositivo e, se não, reiniciar o roteador. Após isso, verificar o IP do micro conectado à rede 10.24 e coletar o MAC do micro para análise." }
     ]
   };
-
 // Ranking
 let ranking = {
     easy: JSON.parse(localStorage.getItem("ranking_easy")) || [],
@@ -71,6 +70,50 @@ document.querySelectorAll(".difficulty-button").forEach(button => {
     });
 });
 
+document.getElementById("view-ranking-button").addEventListener("click", () => {
+    // Exibir a tela de ranking
+    document.getElementById("initial-screen").style.display = "none";
+    document.getElementById("ranking-screen").style.display = "block";
+
+    // Exibir ranking padrão (todos os rankings juntos inicialmente)
+    showFilteredRanking();
+});
+
+document.querySelectorAll(".filter-button").forEach(button => {
+    button.addEventListener("click", () => {
+        const difficulty = button.getAttribute("data-difficulty");
+        showFilteredRanking(difficulty);
+    });
+});
+
+function showFilteredRanking(difficulty = null) {
+    const rankingList = document.getElementById("ranking-list");
+    rankingList.innerHTML = ''; // Limpar o ranking atual
+
+    let filteredRanking;
+    if (difficulty) {
+        // Filtrar por dificuldade
+        filteredRanking = ranking[difficulty];
+    } else {
+        // Combinar rankings de todas as dificuldades
+        filteredRanking = [...ranking.easy, ...ranking.medium, ...ranking.hard]
+            .sort((a, b) => b.score - a.score);
+    }
+
+    // Adicionar os rankings ao DOM
+    filteredRanking.forEach(entry => {
+        const div = document.createElement("div");
+        div.textContent = `${entry.name}: ${entry.score} pontos`;
+        rankingList.appendChild(div);
+    });
+}
+
+document.getElementById("restart-button").addEventListener("click", () => {
+    document.getElementById("ranking-screen").style.display = "none";
+    document.getElementById("initial-screen").style.display = "block";
+    document.getElementById("username").value = '';
+});
+
 function showQuestion() {
     const questionData = questions[currentDifficulty][currentQuestionIndex];
     document.getElementById("quiz-question").textContent = questionData.question;
@@ -102,16 +145,16 @@ function showPopup(selectedOption) {
     popupContainer.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
     popupContainer.style.textAlign = "center";
     popupContainer.style.zIndex = "1000";
-
+    
     const correctAnswer = questions[currentDifficulty][currentQuestionIndex].correct;
     const isCorrect = selectedOption === correctAnswer;
 
     const message = document.createElement("p");
-message.textContent = isCorrect
-    ? "Resposta correta!"
-    : `Resposta errada.`;
-message.style.color = "black"; // Define a cor do texto como preta
-popupContainer.appendChild(message);
+    message.textContent = isCorrect
+        ? "Resposta correta!"
+        : `Resposta errada.`;
+    message.style.color = "black"; // Define a cor do texto como preta
+    popupContainer.appendChild(message);
 
     const nextButton = document.createElement("button");
     nextButton.textContent = "Próxima Pergunta";
@@ -161,17 +204,5 @@ function showRanking() {
     document.getElementById("ranking-screen").style.display = "block";
     
     // Exibir Ranking
-    const rankingList = document.getElementById("ranking-list");
-    rankingList.innerHTML = '';
-    ranking[currentDifficulty].forEach(entry => {
-        const div = document.createElement("div");
-        div.textContent = `${entry.name}: ${entry.score} pontos`;
-        rankingList.appendChild(div);
-    });
+    showFilteredRanking(currentDifficulty);
 }
-
-document.getElementById("restart-button").addEventListener("click", () => {
-    document.getElementById("ranking-screen").style.display = "none";
-    document.getElementById("initial-screen").style.display = "block";
-    document.getElementById("username").value = '';
-});
