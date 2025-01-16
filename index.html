@@ -12,6 +12,7 @@
         <h1>Quiz DSMT LAB</h1>
         <input type="text" id="username" placeholder="Digite seu nome" />
         <button id="start-button">Iniciar Jogo</button>
+        <button id="view-ranking-button">Visualizar Ranking</button>
     </div>
 
     <!-- Tela Dificuldade -->
@@ -31,6 +32,11 @@
     <!-- Tela Ranking -->
     <div id="ranking-screen" class="screen">
         <h2>Ranking</h2>
+        <div id="ranking-filters">
+            <button class="filter-button" data-difficulty="easy">Fácil</button>
+            <button class="filter-button" data-difficulty="medium">Médio</button>
+            <button class="filter-button" data-difficulty="hard">Difícil</button>
+        </div>
         <div id="ranking-list"></div>
         <button id="restart-button">Voltar para a Tela Inicial</button>
     </div>
