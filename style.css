@@ -62,6 +62,20 @@ body {
 #start-button:hover {
     background-color: darkred;
 }
+#view-ranking-button {
+    background-color: red;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#view-ranking-button:hover {
+    background-color: darkred;
+}
 
 /* Tela Dificuldade */
 #difficulty-screen {
@@ -126,7 +140,7 @@ body {
     top: 50%;
     left: 50%;
     border: none;
-    border-radius: 20px; /* Aumentei o arredondamento para 16px */
+    border-radius: 20px; 
     transform: translate(-50%, -50%);
     background-color: white;
     padding: 20px;
@@ -162,10 +176,22 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
-
-
-
 /* Tela Ranking */
+.filter-button {
+    background-color: red;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-button:hover {
+    background-color: darkred;
+}
 #ranking-screen {
     display: none;
     text-align: center;
